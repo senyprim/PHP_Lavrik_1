@@ -1,5 +1,5 @@
 <?php
-define(strict_types=1); 
+// define(strict_types=1); 
 include_once BASE_DIR.'/classes/Db.php';
 include_once BASE_DIR.'/models/Article.php';
 
