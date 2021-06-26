@@ -11,7 +11,7 @@ $article=null;
 
 if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['id'])) {
     $id = ($_GET['id'] ?? '');
-	$result=$repository->checkId();
+	$result=$repository->checkId($id);
 	if ($result) {
         $article = $repository->getArticle($id);
     }

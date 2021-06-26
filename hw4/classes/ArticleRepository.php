@@ -1,4 +1,5 @@
-<?php 
+<?php
+define(strict_types=1); 
 include_once BASE_DIR.'/classes/Db.php';
 include_once BASE_DIR.'/models/Article.php';
 
@@ -14,16 +15,16 @@ class ArticleRepository{
     public function __construct(Db $dbcontext){
         $this->dbcontext=$dbcontext;
     }
-    public function getAll(){
+    public function getAll():null{
         $rows=$this->dbcontext::query(self::QUERY_GET_ALL)->fetchAll();
         if (!$rows){
-            return [];
+            return null;
         }
         return array_map(function($fields){
             return Article::createArticle($fields);
         },$rows);
     }
-    public function getArticle(int $id){
+    public function getArticle(int $id):?Article{
         $row=$this->dbcontext::query(self::QUERY_GET_ARTICLE,[':id'=>$id])->fetch();
         if (!$row){
             return null;
@@ -31,15 +32,17 @@ class ArticleRepository{
         return Article::createArticle($row);
     }
    
-    public function addArticle(Article $article):Article{
+    public function addArticle(?Article $article):?Article{
+        if (null==$article || !existArticle($article->getId())) return null;
         $result = $this->dbcontext::query(self::QUERY_ADD,
         [
             ':title'=>$article->getTitle(),
             ':content'=>$article->getContent(),
             ':author'=>$article->getAuthor(),
         ]);
-        $article->setId($this->dbcontext::getLastId());
-        return $article;
+
+        return $this->getArticle($this->dbcontext::getLastId())
+        ;
     }
     public function removeArticle(int $id){
         $article=$this->getArticle($id);

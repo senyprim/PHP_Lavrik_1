@@ -8,14 +8,14 @@
 	$articles = $repository->getAll();//Берем статьи с базы
 	$notice=$_GET['notice']??'';
 ?>
-<p><?php echo $notice ?></p>
+<p><?=$notice ?></p>
 <a href="add.php">Add article</a>
 <hr>
 <div class="articles">
 	<? foreach($articles as $article): ?>
 		<div class="article">
 			<h2><?=$article->getTitle()?></h2>
-			<a href="article.php?id=<?=$article->getId()?>">Read more</a>
+			<a href="article.php?id=<?php echo $article->getId()?>">Read more</a>
 		</div>
 	<? endforeach; ?>
 </div>

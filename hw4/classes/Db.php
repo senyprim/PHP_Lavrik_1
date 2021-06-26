@@ -1,11 +1,11 @@
 <?php
-
+declare(strict_types=1);
 
 class Db
 {
     protected static $instance = null;
 
-    public static function getInstance():PDO
+    public static function getInstance():?PDO
     {
         $opt = array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
