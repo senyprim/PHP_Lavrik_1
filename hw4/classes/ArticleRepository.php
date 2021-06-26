@@ -15,7 +15,7 @@ class ArticleRepository{
     public function __construct(Db $dbcontext){
         $this->dbcontext=$dbcontext;
     }
-    public function getAll():null{
+    public function getAll(){
         $rows=$this->dbcontext::query(self::QUERY_GET_ALL)->fetchAll();
         if (!$rows){
             return null;
