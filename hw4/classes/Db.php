@@ -5,7 +5,7 @@ class Db
 {
     protected static $instance = null;
 
-    public static function instance()
+    public static function getInstance():PDO
     {
         $opt = array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -20,26 +20,26 @@ class Db
 
         return self::$instance;
     }
+    
 
-
-    public function checkError(PDOStatement $prepare)
+    public static function checkError(PDOStatement $prepare)
     {
         $error = $prepare->errorInfo();
-        if ($error[0] !== PDO::ERR_NONE) {
+        if (!!$error[0] && $error[0]!== PDO::ERR_NONE) {
             throw new ErrorException($error[2]);
+            exit();
         }
     }
 
-    public function query(string $query, array $params = []):PDOStatement
+    public static function query(string $query, array $params = []):PDOStatement
     {
-        $prepare = $this->pdo . prepare($query);//Подготавливаем запрос
-        if (!$prepare) return false;
-        if (!$prepare . execute($params)) {
-            return false;
-        }
-        $this->checkError($prepare);
-
-
+        $prepare = self::getInstance()->prepare($query);//Подготавливаем запрос
+        $prepare->execute($params);//Выполняем запрос
+        self::checkError($prepare);//Вызываем ошибку если нужно
+        return $prepare;//Возвращаем результат
     }
+    public static function getLastId() : string{
+		return self::getInstance()->lastInsertId();
+	}
 
 }
