@@ -1,17 +1,15 @@
 <?php
 // define(strict_types=1);
 include_once BASE_DIR . '/classes/Db.php';
-include_once BASE_DIR . '/models/Article.php';
-
-class ArticleRepository
+include_once BASE_DIR . '/models/Category.php';
+class CategoryRepository
 {
-    const QUERY_GET_ALL = 'select a.*,b.name as category from article a left join category b on a.id_category=b.id_category order by a.id';
-    const QUERY_GET_ARTICLE = 'select a.*,b.name as category from article a left join category b on a.id_category=b.id_category where a.id=:id';
-    const QUERY_ADD = 'insert  article (title,content,author,id_category)
-    values (:title,:content,:author,:id_category)';
-    const QUERY_REMOVE = 'delete from article where id=:id';
-    const QUERY_UPDATE = 'update article set title=:title, content=:content, author=:author, id_category=:id_category where id=:id';
-    const QUERY_EXIST = 'select 1 from article where id=:id';
+    const QUERY_GET_ALL = 'select * from category';
+    const QUERY_GET_ARTICLE = 'select * from category where id= :id';
+    const QUERY_ADD = 'insert  category (name) values (:name)';
+    const QUERY_REMOVE = 'delete from category where id=:id';
+    const QUERY_UPDATE = 'update category set name=:name where id=:id';
+    const QUERY_EXIST = 'select 1 from category where id=:id';
 
     public $dbcontext;
     public function __construct(Db $dbcontext)
@@ -24,25 +22,22 @@ class ArticleRepository
         if (!$rows) {
             return null;
         }
-        foreach($rows as $row){
-            $article=Article::createArticle($row)
-        }
         return array_map(function ($fields) {
-            return Article::createArticle($fields);
+            return Category::create($fields);
         }, $rows);
     }
-    public function getArticle(int $id): ?Article
+    public function getCategory(int $id): ?Category
     {
         $row = $this->dbcontext::query(self::QUERY_GET_ARTICLE, [':id' => $id])->fetch();
         if (!$row) {
             return null;
         }
-        return Article::createArticle($row);
+        return Category::create($row);
     }
 
-    public function addArticle(Article $article): bool
+    public function addCategory(Category $category): bool
     {
-        if (null == $article) {
+        if (null == $category) {
             return false;
         }
 
@@ -83,4 +78,6 @@ class ArticleRepository
     public function checkId(string $id): bool{
         return !!preg_match('/^[1-9]\d*$/',$id);
     }
+
+
 }
