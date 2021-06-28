@@ -4,6 +4,8 @@ include_once (BASE_DIR.'/models/Article.php');
 include_once (BASE_DIR.'/classes/Db.php');
 include_once (BASE_DIR.'/classes/ArticleRepository.php');
 include_once (BASE_DIR.'/classes/CategoryRepository.php');
+include_once (BASE_DIR.'/models/logs.php');
+addLog();
 
 $fields=['title'=>'','content'=>'','id_category'=>''];
 

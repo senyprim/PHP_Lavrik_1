@@ -5,6 +5,8 @@ include_once BASE_DIR . '/classes/ArticleRepository.php';
 include_once BASE_DIR . '/classes/Db.php';
 include_once BASE_DIR . '/models/Article.php';
 include_once BASE_DIR . '/Repository.php';
+include_once (BASE_DIR.'/models/logs.php');
+addLog();
 
 $repository = new ArticleRepository(new Db());
 $result=false;
