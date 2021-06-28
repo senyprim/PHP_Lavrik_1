@@ -11,7 +11,7 @@ class ArticleRepository
     const QUERY_ADD = 'insert  article (title,content,id_category)
     values (:title,:content,:id_category)';
     const QUERY_REMOVE = 'delete from article where id=:id';
-    const QUERY_UPDATE = 'update article set title=:title, content=:content, author=:author, id_category=:id_category where id=:id';
+    const QUERY_UPDATE = 'update article set title=:title, content=:content, id_category=:id_category where id=:id';
     const QUERY_EXIST = 'select 1 from article where id=:id';
 
     public $dbcontext;

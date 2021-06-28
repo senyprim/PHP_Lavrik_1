@@ -33,6 +33,8 @@ class Db
 
     public static function query(string $query, array $params = []):PDOStatement
     {
+        // echo var_dump($query);
+        // echo var_dump($params);
         $prepare = self::getInstance()->prepare($query);//Подготавливаем запрос
         $prepare->execute($params);//Выполняем запрос
         self::checkError($prepare);//Вызываем ошибку если нужно

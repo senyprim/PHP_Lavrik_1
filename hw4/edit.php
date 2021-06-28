@@ -9,9 +9,12 @@ addLog();
 
 $repository=new ArticleRepository(new Db());
 $categories =(new CategoryRepository(new Db()))->getAll();
+
 $article=null;
+$errors=[];
 $id=($_SERVER["REQUEST_METHOD"] === "GET")?$_GET['id']??'':$_POST['id']??'';
 $err404=true;
+
 //Получаем запись по id
 if (checkId($id)) {
 	$article = $repository->getArticle($id);
@@ -22,18 +25,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !$err404) {
     //Берем данные с запроса
 	$article['title'] = trim($_POST['title']);
 	$article['content'] = trim($_POST['content']);
-	$article['id_category'] = checkId($str=trim($_POST['id-category']))?intval($str):null;
+	$article['id_category'] = checkId($str=trim($_POST['id_category']))?intval($str):null;
 	//Зануляем категорию если она не существует
 	if (!containsId($categories,$article['id_category'])){
 		$article['id-category']=null;
 	}
 	//Валидируем article
-	$errors=Article::createArticle($article)->validate();
-	if (!$error){
-		$result=$repository->editArticle($newArticle);
+
+	$cloneArticle=Article::createArticle($article);
+	$errors=$cloneArticle->validate();
+	if (!$errors){
+		$result=$repository->editArticle($cloneArticle);
 		//Если ошибок нет и запись изменилась успешно
 		if ($result){
-			header('Location: article.php?id='.$newArticle['id']);
+			header('Location: article.php?id='.$article['id']);
 			exit();
 		}
 	}
