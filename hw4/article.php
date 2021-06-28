@@ -4,29 +4,31 @@ include_once __DIR__ . '/constants.php';
 include_once BASE_DIR . '/classes/ArticleRepository.php';
 include_once BASE_DIR . '/classes/Db.php';
 include_once BASE_DIR . '/models/Article.php';
+include_once BASE_DIR . '/Repository.php';
 
 $repository = new ArticleRepository(new Db());
-$result=false;
 $article=null;
 
 if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['id'])) {
     $id = ($_GET['id'] ?? '');
-	$result=$repository->checkId($id);
-	if ($result) {
+	if (checkId($id)) {
         $article = $repository->getArticle($id);
     }
 }
 ?>
 
 <div class="content">
-	<? if ($result) : ?>
+	<? if ($article) : ?>
 		<div class="article">
-			<h1><?=$article->getTitle()?></h1>
-			<p>Author:<?=$article->getAuthor()?></p>
-			<div><?=$article->getContent()?></div>
+			<h1><?=$article['title']??''?></h1>
+			<p>Category:<?=$article['category']??''?></p>
+			<div><?=$article['content']??''?></div>
 			<hr>
-			<a href="delete.php?id=<?=$article->getId()?>">Remove</a>
-			<a href="edit.php?id=<?=$article->getId()?>">Edit</a>
+			<form action="delete.php" method="post">
+				<input type="hidden" name="id" value=<?=$article['id']?>>
+				<a href="edit.php?id=<?=$article['id']??''?>">Edit</a>
+				<button type="submit" style="border:none; background:none;text-decoration:underline;cursor:pointer;">Remove</a>
+			</form>
 			</form>
 		</div>
 	<? else : ?>

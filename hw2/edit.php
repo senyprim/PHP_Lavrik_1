@@ -1,17 +1,22 @@
 <?php
 
-include_once('functions.php');
+include_once __DIR__ . '/models/article.php';
+include_once __DIR__ . '/models/logs.php';
+addLog();
 
 /*
-		your code here
-		get id from url
-		check id
-		call removeArticle
-*/
+your code here
+get id from url
+check id
+call removeArticle
+ */
 function isValidId($id)
 {
-	if ($id == null || ctype_digit($id)) return false;
-	return true;
+    if ($id == null || ctype_digit($id)) {
+        return false;
+    }
+
+    return true;
 }
 
 $result = false;
@@ -19,40 +24,40 @@ $article = null;
 $error = '';
 $id = null;
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
-	$id = trim($_GET['id']);
-	if (isValidId($id)) {
-		$error = "wrong id";
-	}
-	$article = getArticle($id);
+    $id = trim($_GET['id']);
+    if (isValidId($id)) {
+        $error = "wrong id";
+    }
+    $article = getArticle($id);
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-	$id = trim($_POST['id'] ?? '');
-	if (isValidId($id)) {
-		$error = "wrong id";
-	}
-	$article = getArticle($id);
-	$title = trim($_POST['title'] ?? '');
-	$content = trim($_POST['content'] ?? '');
-	if ('' == $title || '' == $content) {
-		$error = 'Поля должны быть заполлненны';
-	} else {
-		$result = editArticle($id, $title, $content);
-		if ($result) {
-			header('Location: index.php?notice=Article changed');
-			exit(200);
-		}
-	}
+    $id = trim($_POST['id'] ?? '');
+    if (isValidId($id)) {
+        $error = "wrong id";
+    }
+    $article = getArticle($id);
+    $title = trim($_POST['title'] ?? '');
+    $content = trim($_POST['content'] ?? '');
+    if ('' == $title || '' == $content) {
+        $error = 'Поля должны быть заполлненны';
+    } else {
+        $result = editArticle($id, $title, $content);
+        if ($result) {
+            header('Location: index.php?notice=Article changed');
+            exit(200);
+        }
+    }
 }
 
 ?>
 
 <div class="form">
-	<?php if ($result) : ?>
+	<?php if ($result): ?>
 		<p>Article changed!</p>
 		<a href="edit.php?id=<?php echo $id ?>">Edit again</a>
-	<?php elseif ($article == null) : ?>
+	<?php elseif ($article == null): ?>
 		<p>Article not found</p>
-	<?php else : ?>
+	<?php else: ?>
 		<p><?php echo $error ?></p>
 		<form action="edit.php" method="post">
 			<input type="hidden" name="id" value="<?php echo $article['id']; ?>">
@@ -62,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			Content :<textarea type="text" name="content"><?php echo $article['content'] ?></textarea>
 			<button>Сохранить изменение</button>
 		</form>
-	<?php endif ?>
+	<?php endif?>
 </div>
 
 <hr>

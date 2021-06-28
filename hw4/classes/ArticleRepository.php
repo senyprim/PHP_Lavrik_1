@@ -2,13 +2,14 @@
 // define(strict_types=1);
 include_once BASE_DIR . '/classes/Db.php';
 include_once BASE_DIR . '/models/Article.php';
+include_once BASE_DIR . '/Repository.php';
 
 class ArticleRepository
 {
-    const QUERY_GET_ALL = 'select a.*,b.name as category from article a left join category b on a.id_category=b.id_category order by a.id';
-    const QUERY_GET_ARTICLE = 'select a.*,b.name as category from article a left join category b on a.id_category=b.id_category where a.id=:id';
-    const QUERY_ADD = 'insert  article (title,content,author,id_category)
-    values (:title,:content,:author,:id_category)';
+    const QUERY_GET_ALL = 'select a.*,b.name as category from article a left join category b on a.id_category=b.id order by a.id';
+    const QUERY_GET_ARTICLE = 'select a.*,b.name as category from article a left join category b on a.id_category=b.id where a.id=:id';
+    const QUERY_ADD = 'insert  article (title,content,id_category)
+    values (:title,:content,:id_category)';
     const QUERY_REMOVE = 'delete from article where id=:id';
     const QUERY_UPDATE = 'update article set title=:title, content=:content, author=:author, id_category=:id_category where id=:id';
     const QUERY_EXIST = 'select 1 from article where id=:id';
@@ -20,24 +21,13 @@ class ArticleRepository
     }
     public function getAll(): ?array
     {
-        $rows = $this->dbcontext::query(self::QUERY_GET_ALL)->fetchAll();
-        if (!$rows) {
-            return null;
-        }
-        foreach($rows as $row){
-            $article=Article::createArticle($row)
-        }
-        return array_map(function ($fields) {
-            return Article::createArticle($fields);
-        }, $rows);
+        return $this->dbcontext::query(self::QUERY_GET_ALL)->fetchAll()??null;
     }
-    public function getArticle(int $id): ?Article
+
+    public function getArticle(int $id): ?array
     {
-        $row = $this->dbcontext::query(self::QUERY_GET_ARTICLE, [':id' => $id])->fetch();
-        if (!$row) {
-            return null;
-        }
-        return Article::createArticle($row);
+        $result=$this->dbcontext::query(self::QUERY_GET_ARTICLE, [':id' => $id])->fetch();
+        return $result ?$result:null;
     }
 
     public function addArticle(Article $article): bool
@@ -50,7 +40,7 @@ class ArticleRepository
             [
                 ':title' => $article->getTitle(),
                 ':content' => $article->getContent(),
-                ':author' => $article->getAuthor(),
+                ':id_category'=>$article->getIdCategory(),
             ]);
         return !!$result;
     }
@@ -62,7 +52,7 @@ class ArticleRepository
 
     public function existArticle(int $id):bool
     {
-        return !!$this->dbcontext::query(self::QUERY_EXIST, [':id' => $id]);
+        return !!$this->dbcontext::query(self::QUERY_EXIST, [':id' => $id])->fetch();
     }
 
     public function editArticle(Article $article):bool
@@ -75,12 +65,10 @@ class ArticleRepository
                 ':id' => $article->getId(),
                 ':title' => $article->getTitle(),
                 ':content' => $article->getContent(),
-                ':author' => $article->getAuthor(),
+                ':id_category' => $article->getIdCategory(),
             ]);
         return !!$result;
     }
 
-    public function checkId(string $id): bool{
-        return !!preg_match('/^[1-9]\d*$/',$id);
-    }
+   
 }

@@ -1,5 +1,7 @@
 <?php
-	include_once('functions.php');
+	include_once(__DIR__.'/models/article.php');
+	include_once(__DIR__.'/models/logs.php');
+	addLog();
 	$articles = getArticles();
 	$notice=$_GET['notice']??'';
 ?>

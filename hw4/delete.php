@@ -4,23 +4,26 @@ include_once __DIR__ . '/constants.php';
 include_once BASE_DIR . '/classes/ArticleRepository.php';
 include_once BASE_DIR . '/classes/Db.php';
 include_once BASE_DIR . '/models/Article.php';
+include_once BASE_DIR . '/Repository.php';
 
 $repository = new ArticleRepository(new Db());
 $result=false;
 
-if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['id'])) {
-    $id = ($_GET['id'] ?? '');
-    $result = $repository->checkId($id);
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id'])) {
+    $id = ($_POST['id'] ?? '');
+    $result = checkId($id);
+    //Проверяем наличие удаляемой статьи
+    $result = $repository->existArticle($id);
     if ($result) {
         $result = $repository->removeArticle($id);
         if (!!$result) {
             header('Location: index.php?notice=Article with id=' . $id . ' removed');
-            exit(200);
+            exit();
         }
     }
 }
 ?>
 
-<p>Article not found</p>
+<p>Article with id=<?=$id?> not found</p>
 <hr>
 <a href="index.php">Move to main page</a>

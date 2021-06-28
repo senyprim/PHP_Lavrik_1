@@ -1,5 +1,6 @@
 <?php
-include $BASE_DIR.'/models/Category.php';
+include BASE_DIR.'/models/Category.php';
+include BASE_DIR.'/Repository.php';
 class Article
 {
     const MIN_LENGTH_TITLE=2;
@@ -11,7 +12,7 @@ class Article
     protected $content;
     protected $dt_add;
 
-    public function __construct(int $id,int $idCategory,string  $title,string  $content, $dt_add)
+    public function __construct(int $id,?int $idCategory,string  $title,string  $content, $dt_add)
     {
         $this->id = $id;
         $this->idCategory = $idCategory;
@@ -24,31 +25,41 @@ class Article
         if (!$fields) {
             return null;
         }
+        $id=checkId($fields['id'])? intval($fields['id']):0;
+        $idCategory=checkId($fields['id_category'])? intval($fields['id_category']):null;
 
-        return new Article($fields['id'] ?? 0, $fields['author'], $fields['title'], $fields['content'], $fields['dt_add'] ?? '');
+        return new Article($id, $idCategory, $fields['title']??null, $fields['content']??null, $fields['dt_add'] ??null );
     }
     
     public function validate():array{
         $errors=[];
         if (!$this->idCategory || !$this->title || !$this->content) {
-            $errors[]='Категория заголовок и текст - обязательные для заполнения поля';
+            $errors[]='Категория, заголовок и текст - обязательные для заполнения поля';
         };
         if ($this->title && mb_strlen($this->title)<self::MIN_LENGTH_TITLE){
             $errors[]='Длина заголовка должна быть не меньше '.self::MIN_LENGTH_TITLE.'символов';
         }
-        if ($this->text && mb_strlen($this->text)<self::MIN_LENGTH_TEXT){
+        if ($this->content && mb_strlen($this->content)<self::MIN_LENGTH_TEXT){
             $errors[]='Длина текста должна быть не меньше '.self::MIN_LENGTH_TEXT.'символов';
         }
         return  $errors;
     }
 
-    public function getId()
+    public function getId():int
     {
         return $this->id;
+    }
+    public function getIdCategory():?int
+    {
+        return $this->idCategory;
     }
     public function setId(int $id)
     {
         $this->id = $id;
+    }
+    public function setIdCategory(?int $id)
+    {
+        $this->idCategory = $id;
     }
     public function getAuthor()
     {

@@ -18,21 +18,11 @@ class CategoryRepository
     }
     public function getAll(): ?array
     {
-        $rows = $this->dbcontext::query(self::QUERY_GET_ALL)->fetchAll();
-        if (!$rows) {
-            return null;
-        }
-        return array_map(function ($fields) {
-            return Category::create($fields);
-        }, $rows);
+        return $this->dbcontext::query(self::QUERY_GET_ALL)->fetchAll()??null;
     }
     public function getCategory(int $id): ?Category
     {
-        $row = $this->dbcontext::query(self::QUERY_GET_ARTICLE, [':id' => $id])->fetch();
-        if (!$row) {
-            return null;
-        }
-        return Category::create($row);
+        return $this->dbcontext::query(self::QUERY_GET_ARTICLE, [':id' => $id])->fetch()??null;
     }
 
     public function addCategory(Category $category): bool
@@ -43,34 +33,30 @@ class CategoryRepository
 
         $result = $this->dbcontext::query(self::QUERY_ADD,
             [
-                ':title' => $article->getTitle(),
-                ':content' => $article->getContent(),
-                ':author' => $article->getAuthor(),
+                ':name' => $category->getName()
             ]);
         return !!$result;
     }
 
-    public function removeArticle(int $id):bool
+    public function removeCategory(int $id):bool
     {
         return !!$this->dbcontext::query(self::QUERY_REMOVE, [':id' => $id]);
     }
 
-    public function existArticle(int $id):bool
+    public function existCategory(int $id):bool
     {
         return !!$this->dbcontext::query(self::QUERY_EXIST, [':id' => $id]);
     }
 
-    public function editArticle(Article $article):bool
+    public function editCategory(Category $category):bool
     {
-        if (!$article) {
+        if (!$category) {
             return false;
         }
         $result = $this->dbcontext::query(self::QUERY_UPDATE,
             [
-                ':id' => $article->getId(),
-                ':title' => $article->getTitle(),
-                ':content' => $article->getContent(),
-                ':author' => $article->getAuthor(),
+                ':id' => $category->getId(),
+                ':name' => $category->getName(),
             ]);
         return !!$result;
     }
