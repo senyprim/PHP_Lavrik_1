@@ -15,12 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 if ($result){
-    include(BASE_DIR.'/views/succes.php')
-} elseif($validArticle){
+    include(BASE_DIR.'/views/succes.php');
+}
+else if($validArticle){
     include(BASE_DIR.'/views/succes.php')
 }
 
-<p>
+<p >
     <? if ($result) : ?>
         Article was deleted
     <? elseif ($validArticle) : ?>

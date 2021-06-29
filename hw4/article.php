@@ -6,12 +6,14 @@ include_once BASE_DIR . '/core/functions.php';
 include_once(BASE_DIR . '/models/logs.php');
 addLog();
 
+$fieldNames=['title','content','category','id'];
 $fields = null;
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
 	$id = ($_GET['id'] ?? '');
 	if (checkArticleId($id)) {
-		$fields =extractFields(getArticle(intval($id)),['title','content','category']);
+		$fields =extractFields(getArticle(intval($id)),$fieldNames);
+		var_dump($fields);
 	}
 }
 if (!empty($fields)){
