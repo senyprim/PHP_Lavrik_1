@@ -6,7 +6,7 @@ addLog();
 
 $validArticle = false;
 $result = false;
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id'])) {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $id = ($_POST['id'] ?? '');
     //Валидация id
     $validArticle = checkArticleId($id) && existArticle(intval($id));
@@ -14,7 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id'])) {
         $result = removeArticle($id);
     }
 }
-?>
+if ($result){
+    include(BASE_DIR.'/views/succes.php')
+} elseif($validArticle){
+    include(BASE_DIR.'/views/succes.php')
+}
 
 <p>
     <? if ($result) : ?>

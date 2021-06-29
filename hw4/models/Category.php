@@ -1,6 +1,6 @@
 <?php
 
-include_once (BASE_DIR . '/models/db.php');
+include_once (BASE_DIR . '/core/db.php');
 
 function getAllCategory():?array
 {
