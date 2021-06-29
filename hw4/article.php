@@ -13,13 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 	$id = ($_GET['id'] ?? '');
 	if (checkArticleId($id)) {
 		$fields =extractFields(getArticle(intval($id)),$fieldNames);
-		var_dump($fields);
 	}
 }
+
 if (!empty($fields)){
 	include(BASE_DIR.'/views/article.php');
 } else {
 	header('HTTP/1.0 404 Not Found');
 	include(BASE_DIR.'/views/errors/error404.php');
-}
-
+};

@@ -1,6 +1,6 @@
-<form action="add.php" method="post">
+<form action=<?=$action??basename($_SERVER["REQUEST_URI"])?> method="post">
     <h1><?=$titleForm?></h1>
-
+    <input type="hidden" name="id" value="<?=$fields['id']??''?>">
     Title :<input type="text" name="title" value="<?php echo $fields['title']; ?>" placeholder="Введите заголовок статьи">
     <br>
     <br>

@@ -1,91 +1,53 @@
 <?php
-include_once (__DIR__.'/constants.php');
-include_once (BASE_DIR.'/models/article.php');
-include_once (BASE_DIR.'/models/category.php');
-include_once (BASE_DIR.'/functions.php');
-include_once (BASE_DIR.'/models/logs.php');
+include_once(__DIR__ . '/constants.php');
+include_once(BASE_DIR . '/models/article.php');
+include_once(BASE_DIR . '/models/category.php');
+include_once(BASE_DIR . '/core/functions.php');
+include_once(BASE_DIR . '/models/logs.php');
 addLog();
 
-$categories =getAllCategory();
-$validId=false;
-$result=false;
-$article=null;
-$errors=[];
+$fieldNames = ['title', 'content', 'id_category', 'id'];
+$result = false;
+$article = null;
+$errors = [];
+$fields=null;
+$categories = getAllCategory();
 //Берем id из get или post запроса
-$id=($_SERVER["REQUEST_METHOD"] === "GET")?$_GET['id']??'':$_POST['id']??'';
+$id = ($_SERVER["REQUEST_METHOD"] === "GET") ? $_GET['id'] ?? '' : $_POST['id'] ?? '';
 //Получаем запись по id
-$validId = checkArticleId($id);
-if ($validId) {
+if (checkArticleId($id)) {
 	$article = getArticle(intval($id));
+	$fields = extractFields($article, $fieldNames);
 }
 //Если запрос пост и такая запись существует
-if ($_SERVER["REQUEST_METHOD"] === "POST" && !!$article) {
-    //Берем данные с запроса
-	$article['title'] = trim($_POST['title']);
-	$article['content'] = trim($_POST['content']);
-	$article['id_category'] = trim($_POST['id_category']);
-	$errors=validateArticle($article);
+if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($article)) {
+	//Берем данные с запроса
+	$fields = extractFields($_POST, $fieldNames);
+	//Валидируем
+	$errors = validateArticle($fields);
 	if (
 		!checkCategoryId($article['id_category']) ||
-		!arrayContainsId($categories,intval($article['id_category'])))
-	{
-		$errors[]='Выбранная категория не существует';
+		!arrayContainsId($categories, intval($article['id_category']))
+	) {
+		$errors[] = CATEGORY_ERROR_NOT_EXIST;
 	}
-	if (!$errors)
-	{
-		$result = editArticle( $article );
-		if ($result){
-			header('Location: article.php?id='.$article['id']);
+	if (empty($errors)) {
+		$fields = encodeFields($fields);
+		$result = editArticle($fields);
+		if ($result) {
+			header('Location: article.php?id=' . $fields['id']);
 			exit();
-		} 
-		$errors[]='Something went wrong - record not updated. Try later';
+		}
+		$errors[] = 'Something went wrong - record not updated. Try later';
 	}
 }
-?>
 
-<div class="form">
-	<?php if (!$article): ?>
-		<p>Article not found</p>
-		<hr>
-		<a href="index.php">На главную страницу</a>
-	<?php else : ?>
-		<h1>Edit article</h1>
-		<form action="edit.php" method="post">
-		<input type="hidden" name="id" value="<?=$article['id']?>">
-		<?php if (!!$errors):?>
-				<div class="errors">
-				<?php foreach($errors as $error):?>
-					<p><?php echo $error ?></p>
-				<?php endforeach ?>
-				</div>
-			<? endif ?>
-			Title :<input 
-			type="text" 
-			name="title" 
-			value="<?= $article['title'];?>"
-			placeholder="Введите заголовок статьи"
-			>
-			<br>
-			<br>
-			Category : 
-			<select name="id_category">
-			<option value="" disabled>Выберите категорию статьи</option>
-			<?php foreach($categories as $category):?>
-				<option 
-					value="<?php echo $category['id']??''?>" 
-					<?php echo $category['id']==$article['id_category']?'selected':''?>
-				>
-					<?php echo $category['name']??'';?>
-				</option>
-			<? endforeach; ?>
-			</select>
-			<br>
-			<br>
-			Content :<textarea name="content" placeholder="Введите текст статьи"
-			><?php echo $article['content']?></textarea>
-			<br>
-			<br>
-			<button>Изменить</button>
-		</form>
-	<?php endif ?>
-</div>
+if (empty($article)) {
+	$titleView = 'Article not found';
+	include(BASE_DIR . '/views/fail.php');
+} else {
+	$titleForm = 'Edit Article';
+	$buttonForm = 'Edit Article';
+	$action='edit.php';
+	include(BASE_DIR . '/views/article-form.php');
+}

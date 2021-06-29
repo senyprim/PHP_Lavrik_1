@@ -16,6 +16,8 @@ define('CATEGORY_QUERY_EXIST', 'select 1 from category where id=:id');
 
 define('CATEGORY_MIN_SIZE_NAME',2);
 define('CATEGORY_REGEX_CHECK_ID','/^[1-9]\d*$/');
+
+define('CATEGORY_ERROR_NOT_EXIST','Выбранная категория не существует');
 //Article
 define('ARTICLE_QUERY_GET_ALL', 'select a.*,b.name as category from article a left join category b on a.id_category=b.id order by a.id');
 define('ARTICLE_QUERY_GET', 'select a.*,b.name as category from article a left join category b on a.id_category=b.id where a.id=:id');

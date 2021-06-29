@@ -33,7 +33,8 @@ if ('POST'==$_SERVER["REQUEST_METHOD"]) {
 	}
 }
 $titleForm='Add Article';
-$buttonForm='Add';
+$buttonForm='Add Article';
+// $action='add.php';
 include(BASE_DIR.'/views/article-form.php');
 
 

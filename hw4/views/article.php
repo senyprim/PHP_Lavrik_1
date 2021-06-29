@@ -1,4 +1,5 @@
 <div class="content">
+    <p class="notice"><?=$notice?></p>
     <div class="article">
         <h1><?= $fields['title'] ?? '' ?></h1>
         <p>Category:<?= $fields['category'] ?? '' ?></p>

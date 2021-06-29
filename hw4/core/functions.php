@@ -9,8 +9,9 @@ function indexOfId(array $array,?int $id):int{
 function arrayContainsId(array $array, ?int $id):bool{
     return indexOfId($array,$id)>=0;
 }
-function extractFields(array $array,array $fieldNames):array{
+function extractFields(?array $array,?array $fieldNames):array{
     $result=[];
+    if (!$array || !$fieldNames) return $result;
     foreach($fieldNames as $field){
         $result[$field] = trim($array[$field]);
     }

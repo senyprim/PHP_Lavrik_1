@@ -15,20 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 if ($result){
+    $titleView='Article deleted';
     include(BASE_DIR.'/views/succes.php');
-}
-else if($validArticle){
-    include(BASE_DIR.'/views/succes.php')
-}
-
-<p >
-    <? if ($result) : ?>
-        Article was deleted
-    <? elseif ($validArticle) : ?>
-        Somthing wrong. Article not deleted.
-    <? else : ?>
-        Article with id=<?= $id ?> not found
-    <? endif ?>
-</p>
-<hr>
-<a href="index.php">Move to main page</a>
+} elseif($validArticle){
+    $titleView='Something went wrong.Article not deleted. Try later';
+    include(BASE_DIR.'/views/fail.php');
+} else {
+    $titleView='Article not found';
+    include(BASE_DIR.'/views/fail.php');
+};

@@ -1,6 +1,6 @@
 <div class="content">
-    <div class="e404">
-        <h1>Страница не найдена!</h1>
+    <div class="fail">
+        <h1><?= $titleView ?></h1>
         <hr>
         <a href="index.php">Move to main page</a>
     </div>
