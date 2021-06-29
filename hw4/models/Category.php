@@ -1,31 +1,60 @@
 <?php
-class Category{
-    const MIN_LENGTH_NAME=2;
-    protected $id;
-    protected $name;
 
-    public function __construct(int $id,string $name){
-        $this->id = $id;
-        $this->name = trim($name);
-    }
-    public static function create(array $fields): Category{
-        if (!$fields) {
-            return null;
-        }
+include_once (BASE_DIR . '/models/db.php');
 
-        return new Category($fields['id'] ?? 0, $fields['name']);
+function getAllCategory():?array
+{
+    return query(CATEGORY_QUERY_GET_ALL)->fetchAll()??null;
+}
+
+function getCategory(int $id): ?array
+{
+        $result=query(CATEGORY_QUERY_GET, [':id' => $id])->fetch();
+        return $result ? $result : null;
+}
+
+function addCategory(?array $category): bool
+{
+    if (!$category) {
+        return false;
     }
-    public function getId():int{
-        return $this->id;
-    }
-    public function getName():string{
-        return $this->name;
-    }
-    public function validate():array{
-        $error=[];
-        if (mb_strlen($this->name || '')<self::MIN_LENGTH_NAME){
-            $error[]='Длина имени категории не может быть меньше '.self::MIN_LENGTH_NAME;
+    $result = query(
+        CATEGORY_QUERY_ADD,
+        [
+            ':name' => $category['name'],
+        ]
+    );
+    return !!$result->rowCount();
+}
+function removeCategory(int $id):bool
+{
+    return !!query(CATEGORY_QUERY_REMOVE, [':id' => $id])->rowCount();
+}
+function existCategory(int $id):bool
+{
+    return !!query(CATEGORY_QUERY_EXIST, [':id' => $id])->fetch();
+}
+function editCategory(array $category):bool
+{
+        if (!$category) {
+            return false;
         }
-        return $error;
+        $result = query(
+            CATEGORY_QUERY_UPDATE,
+            [
+                ':id' => $category['id'] ?? 0,
+                ':name' => $category['name'],
+            ]);
+        return !!$result->rowCount();
+}
+function validateCategory(array $category):array
+{
+    $error=[];
+    if (gettype($category['name'])!=='string' || mb_strlen($category['name'])<CATEGORY_MIN_SIZE_NAME){
+            $error[]='Длина имени категории не может быть меньше '.CATEGORY_MIN_SIZE_NAME.'символов';
     }
+    return $error;
+}
+function checkCategoryId(string $id){
+    return preg_match(CATEGORY_REGEX_CHECK_ID,$id??'');
 }

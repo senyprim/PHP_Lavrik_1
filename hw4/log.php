@@ -1,6 +1,8 @@
 <?php
-include_once __DIR__ . '/models/logs.php';
+include_once(__DIR__.'/constants.php');
+include_once(__DIR__ . '/models/logs.php');
 addLog();
+
 $detailedMode=isset($_GET['file']);
 $error=false;
 if ($detailedMode) {

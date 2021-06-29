@@ -1,15 +1,13 @@
 <?php
 include_once __DIR__ . '/constants.php';
-include_once BASE_DIR . '/classes/Db.php';
-include_once BASE_DIR . '/classes/ArticleRepository.php';
+include_once BASE_DIR . '/models/article.php';
+include_once BASE_DIR . '/models/category.php';
 include_once BASE_DIR . '/models/logs.php';
 addLog();
 
-$repository = new ArticleRepository(new Db());
-$articles = $repository->getAll(); //Берем статьи с базы
-$notice = $_GET['notice'] ?? '';
+
+$articles = getAllArticle(); //Берем статьи с базы
 ?>
-<p><?=$notice?></p>
 <a href="add.php">Add article</a>
 <hr>
 <div class="articles">

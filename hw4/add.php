@@ -1,35 +1,35 @@
 <?php
 include_once (__DIR__.'/constants.php');
-include_once (BASE_DIR.'/models/Article.php');
-include_once (BASE_DIR.'/classes/Db.php');
-include_once (BASE_DIR.'/classes/ArticleRepository.php');
-include_once (BASE_DIR.'/classes/CategoryRepository.php');
+include_once (__DIR__.'/functions.php');
+include_once (BASE_DIR.'/models/article.php');
+include_once (BASE_DIR.'/models/category.php');
 include_once (BASE_DIR.'/models/logs.php');
+include_once (BASE_DIR.'/models/db.php');
 addLog();
-
-$fields=['title'=>'','content'=>'','id_category'=>''];
 
 $result = false;
 $errors = [];
-$repositoryArticle=new ArticleRepository(new Db());
-$categories =(new CategoryRepository(new Db()))->getAll();
+//Запрашиваем все категории чтобы показать список
+//(так как при ошибочных post запросах мы должны показывать все категории считываем всегда)
+$categories =getAllCategory();
+$fields=['title'=>'','content'=>'','id_category'=>''];
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ('POST'==$_SERVER["REQUEST_METHOD"]) {
 	$fields['title'] = trim($_POST['title']);
 	$fields['content'] = trim($_POST['content']);
 	$fields['id_category'] = trim($_POST['id_category']);
-
-	$article=Article::createArticle($fields);
-	//Если такой категории нет сбросить ее на null
-	if (!containsId($categories,$article->getIdCategory())){
-		$article->setIdCategory(null);
-	}
-	;
-	if (!$errors=$article->validate())
+	//Валидация
+	$errors=validateArticle($fields);
+	if (
+		!checkCategoryId($fields['id_category']) ||
+		!arrayContainsId($categories,intval($fields['id_category'])))
 	{
-		$result = $repositoryArticle->addArticle( $article );
-		
-		header('Location: article.php?id='.$repositoryArticle->dbcontext::getLastId());
+		$errors[]='Выбранная категория не существует';
+	}
+	if (!$errors)
+	{
+		$result = addArticle( $fields );
+		header('Location: article.php?id='.getLastId());
 		exit();
 	}
 } 

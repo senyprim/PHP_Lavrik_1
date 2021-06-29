@@ -1,81 +1,72 @@
 <?php
-include BASE_DIR.'/models/Category.php';
-include BASE_DIR.'/Repository.php';
-class Article
+
+include_once (BASE_DIR . '/models/db.php');
+
+function getAllArticle():?array
 {
-    const MIN_LENGTH_TITLE=2;
-    const MIN_LENGTH_TEXT=2;
+    return query(ARTICLE_QUERY_GET_ALL)->fetchAll()??null;
+}
 
-    protected $id;
-    protected $idCategory;
-    protected $title;
-    protected $content;
-    protected $dt_add;
+function getArticle(int $id): ?array
+{
+        $result=query(ARTICLE_QUERY_GET, [':id' => $id])->fetch();
+        return $result ? $result : null;
+}
 
-    public function __construct(int $id,?int $idCategory,string  $title,string  $content, $dt_add)
-    {
-        $this->id = $id;
-        $this->idCategory = $idCategory;
-        $this->title = trim($title);
-        $this->content = trim($content);
-        $this->dt_add = trim($dt_add);
+function addArticle(?array $article): bool
+{
+    if (!$article) {
+        return false;
     }
-    public static function createArticle(array $fields)
-    {
-        if (!$fields) {
-            return null;
-        }
-        $id=checkId($fields['id'])? intval($fields['id']):0;
-        $idCategory=checkId($fields['id_category'])? intval($fields['id_category']):null;
+    $result = query(
+        ARTICLE_QUERY_ADD,
+        [
+            ':title' => $article['title'],
+            ':content' => $article['content'],
+            ':id_category'=>$article['id_category'],
+        ]
+    );
 
-        return new Article($id, $idCategory, $fields['title']??null, $fields['content']??null, $fields['dt_add'] ??null );
+    return !!$result->rowCount();
+}
+function removeArticle(int $id):bool
+{
+    return !!query(ARTICLE_QUERY_REMOVE, [':id' => $id])->rowCount();
+}
+function existArticle(int $id):bool
+{
+    return !!query(ARTICLE_QUERY_EXIST, [':id' => $id])->fetch();
+}
+function editArticle(array $article):bool
+{
+        if (!$article) {
+            return false;
+        }
+        $result = query(
+            ARTICLE_QUERY_UPDATE,
+            [
+                ':id' => $article['id'] ?? 0,
+                ':title' => $article['title'],
+                ':content' => $article['content'],
+                ':id_category' => $article['id_category'],
+            ]);
+        return !!$result->rowCount();
+}
+function validateArticle(array $article):array
+{
+    $errors=[];
+    if (!$article['title'] || !$article['content']) {
+        $errors[]='Заголовок и текст - должны быть заполненны';
+    };
+    if ($article['title'] && mb_strlen($article['title'])<ARTICLE_MIN_SIZE_TITLE){
+        $errors[]='Длина заголовка должна быть не меньше '.ARTICLE_MIN_SIZE_TITLE.'символов';
+    };
+    if ($article['content'] && mb_strlen($article['content'])<ARTICLE_MIN_SIZE_CONTENT){
+        $errors[]='Длина текста должна быть не меньше '.ARTICLE_MIN_SIZE_CONTENT.' символов';
     }
     
-    public function validate():array{
-        $errors=[];
-        if (!$this->idCategory || !$this->title || !$this->content) {
-            $errors[]='Категория, заголовок и текст - обязательные для заполнения поля';
-        };
-        if ($this->title && mb_strlen($this->title)<self::MIN_LENGTH_TITLE){
-            $errors[]='Длина заголовка должна быть не меньше '.self::MIN_LENGTH_TITLE.'символов';
-        }
-        if ($this->content && mb_strlen($this->content)<self::MIN_LENGTH_TEXT){
-            $errors[]='Длина текста должна быть не меньше '.self::MIN_LENGTH_TEXT.'символов';
-        }
-        return  $errors;
-    }
-
-    public function getId():int
-    {
-        return $this->id;
-    }
-    public function getIdCategory():?int
-    {
-        return $this->idCategory;
-    }
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-    public function setIdCategory(?int $id)
-    {
-        $this->idCategory = $id;
-    }
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-    public function getTitle()
-    {
-        return $this->title;
-    }
-    public function getContent()
-    {
-        return $this->content;
-    }
-    public function getDtAdd()
-    {
-        return $this->dt_add;
-    }
-   
+    return  $errors;
+}
+function checkArticleId(string $id){
+    return preg_match(ARTICLE_REGEX_CHECK_ID,$id??'');
 }

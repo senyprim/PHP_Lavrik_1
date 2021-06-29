@@ -1,11 +1,8 @@
 <?php
-$p = realpath(__DIR__ . '/../logs');
-define('LOG_DIRECTORY', $p);
-define('REGEX_LOG_FILE', '/^\d{4}-\d{2}-\d{2}\.txt$/i');
 
 function checkLogFileName(string $file): bool
 {
-    return !!preg_match(REGEX_LOG_FILE, $file);
+    return !!preg_match(LOG_REGEX_FILE, $file);
 }
 function hasLogFileName(string $file): bool
 {

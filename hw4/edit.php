@@ -1,56 +1,55 @@
 <?php
 include_once (__DIR__.'/constants.php');
-include_once (BASE_DIR.'/classes/ArticleRepository.php');
-include_once (BASE_DIR.'/classes/CategoryRepository.php');
-include_once (BASE_DIR.'/classes/Db.php');
-include_once (BASE_DIR.'/models/Article.php');
+include_once (BASE_DIR.'/models/article.php');
+include_once (BASE_DIR.'/models/category.php');
+include_once (BASE_DIR.'/functions.php');
 include_once (BASE_DIR.'/models/logs.php');
 addLog();
 
-$repository=new ArticleRepository(new Db());
-$categories =(new CategoryRepository(new Db()))->getAll();
-
+$categories =getAllCategory();
+$validId=false;
+$result=false;
 $article=null;
 $errors=[];
+//Берем id из get или post запроса
 $id=($_SERVER["REQUEST_METHOD"] === "GET")?$_GET['id']??'':$_POST['id']??'';
-$err404=true;
-
 //Получаем запись по id
-if (checkId($id)) {
-	$article = $repository->getArticle($id);
-	$err404=!$article;
+$validId = checkArticleId($id);
+if ($validId) {
+	$article = getArticle(intval($id));
 }
 //Если запрос пост и такая запись существует
-if ($_SERVER["REQUEST_METHOD"] === "POST" && !$err404) {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && !!$article) {
     //Берем данные с запроса
 	$article['title'] = trim($_POST['title']);
 	$article['content'] = trim($_POST['content']);
-	$article['id_category'] = checkId($str=trim($_POST['id_category']))?intval($str):null;
-	//Зануляем категорию если она не существует
-	if (!containsId($categories,$article['id_category'])){
-		$article['id-category']=null;
+	$article['id_category'] = trim($_POST['id_category']);
+	$errors=validateArticle($article);
+	if (
+		!checkCategoryId($article['id_category']) ||
+		!arrayContainsId($categories,intval($article['id_category'])))
+	{
+		$errors[]='Выбранная категория не существует';
 	}
-	//Валидируем article
-
-	$cloneArticle=Article::createArticle($article);
-	$errors=$cloneArticle->validate();
-	if (!$errors){
-		$result=$repository->editArticle($cloneArticle);
-		//Если ошибок нет и запись изменилась успешно
+	if (!$errors)
+	{
+		$result = editArticle( $article );
 		if ($result){
 			header('Location: article.php?id='.$article['id']);
 			exit();
-		}
+		} 
+		$errors[]='Something went wrong - record not updated. Try later';
 	}
 }
 ?>
 
 <div class="form">
-	<?php if ($err404): ?>
+	<?php if (!$article): ?>
 		<p>Article not found</p>
 		<hr>
 		<a href="index.php">На главную страницу</a>
 	<?php else : ?>
+		<h1>Edit article</h1>
 		<form action="edit.php" method="post">
 		<input type="hidden" name="id" value="<?=$article['id']?>">
 		<?php if (!!$errors):?>
@@ -86,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !$err404) {
 			><?php echo $article['content']?></textarea>
 			<br>
 			<br>
-			<button>Добавить</button>
+			<button>Изменить</button>
 		</form>
 	<?php endif ?>
 </div>
