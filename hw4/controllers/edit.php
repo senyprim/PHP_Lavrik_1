@@ -1,10 +1,5 @@
 <?php
-include_once(__DIR__ . '/constants.php');
-include_once(BASE_DIR . '/models/article.php');
 include_once(BASE_DIR . '/models/category.php');
-include_once(BASE_DIR . '/core/functions.php');
-include_once(BASE_DIR . '/models/logs.php');
-addLog();
 
 $fieldNames = ['title', 'content', 'id_category', 'id'];
 $result = false;
@@ -35,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($article)) {
 		$fields = encodeFields($fields);
 		$result = editArticle($fields);
 		if ($result) {
-			header('Location: article.php?id=' . $fields['id']);
+			header('Location: index.php?c=article&id=' . $fields['id']);
 			exit();
 		}
 		$errors[] = 'Something went wrong - record not updated. Try later';
@@ -48,6 +43,6 @@ if (empty($article)) {
 } else {
 	$titleForm = 'Edit Article';
 	$buttonForm = 'Edit Article';
-	$action='edit.php';
+	$action='edit';
 	include(BASE_DIR . '/views/article-form.php');
 }

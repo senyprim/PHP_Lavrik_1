@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $error = 'Заполните все поля!';
     } else {
         addArticle($title, $content);
-        header('Location: index.php?notice=Article added');
+        header('Location: index.php');
         exit(200);
     }
 } else {

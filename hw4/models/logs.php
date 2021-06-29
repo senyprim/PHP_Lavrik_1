@@ -37,16 +37,19 @@ function logsStrToArr(string $str): array
     return $parts;
 }
 
-function addLog(): bool
-{
-    $filename = date("Y-m-d");
-    $info = [
+function getLogInfo():array{
+    return [
         'time' => date('H:i:s'),
         'ip' => $_SERVER['REMOTE_ADDR'],
         'uri' => $_SERVER['REQUEST_URI'],
         'method' => $_SERVER['REQUEST_METHOD'],
         'referer' => $_SERVER['HTTP_REFERER'] ?? '',
     ];
+};
+
+function addLog($info): bool
+{
+    $filename = date("Y-m-d");
     $line = json_encode($info) . "\n";
     file_put_contents(LOG_DIRECTORY . "/$filename.txt", $line, FILE_APPEND);
     return true;

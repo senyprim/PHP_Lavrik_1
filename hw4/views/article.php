@@ -5,9 +5,9 @@
         <p>Category:<?= $fields['category'] ?? '' ?></p>
         <div><?= $fields['content'] ?? '' ?></div>
         <hr>
-        <form action="delete.php" method="post">
+        <form action="index.php?c=delete" method="post">
             <input type="hidden" name="id" value=<?= $fields['id'] ?>>
-            <a href="edit.php?id=<?= $fields['id'] ?? '' ?>">Edit</a>
+            <a href="index.php?c=edit&id=<?= $fields['id'] ?? '' ?>">Edit</a>
             <button type="submit" style="border:none; background:none;text-decoration:underline;cursor:pointer;">Remove</a>
         </form>
         </form>

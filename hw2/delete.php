@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     if (ctype_digit($id)) {
         $result = removeArticle($id);
         if ($result) {
-            header("Location: index.php?notice=Article removed");
+            header("Location: index.php");
             exit(200);
         }
     }

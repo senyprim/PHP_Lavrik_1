@@ -1,11 +1,6 @@
 <?php
-include_once (__DIR__.'/constants.php');
-include_once (__DIR__.'/core/functions.php');
-include_once (BASE_DIR.'/core/db.php');
 include_once (BASE_DIR.'/models/article.php');
 include_once (BASE_DIR.'/models/category.php');
-include_once (BASE_DIR.'/models/logs.php');
-addLog();
 
 $fieldNames=['title','content','id_category'];
 $result = false;
@@ -28,13 +23,13 @@ if ('POST'==$_SERVER["REQUEST_METHOD"]) {
 	{
 		$fields=encodeFields($fields);
 		$result = addArticle( $fields );
-		header('Location: article.php?id='.getLastId());
+		header('Location: index.php?c=article&id='.getLastId());
 		exit();
 	}
 }
 $titleForm='Add Article';
 $buttonForm='Add Article';
-// $action='add.php';
+$action='add';
 include(BASE_DIR.'/views/article-form.php');
 
 

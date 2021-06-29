@@ -329,3 +329,6 @@
 {"time":"15:17:07","ip":"127.0.0.1","uri":"\/hw4\/edit.php","method":"POST","referer":"http:\/\/lavrik.local\/hw4\/edit.php?id=29"}
 {"time":"15:17:07","ip":"127.0.0.1","uri":"\/hw4\/article.php?id=29","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/edit.php?id=29"}
 {"time":"15:17:10","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/article.php?id=29"}
+{"time":"16:07:50","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/article.php?id=29"}
+{"time":"16:08:22","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/article.php?id=29"}
+{"time":"16:08:28","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":""}
