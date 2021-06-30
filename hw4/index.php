@@ -45,10 +45,10 @@ addLog(getLogInfo());
 $cname = $_GET['c'] ?? 'index';
 $path = "controllers/$cname.php";
 
-if (checkControllerName($cname) && is_file($path)){
+if (checkControllerName($cname) && file_exists($path)){
     include_once($path);
 }
 else{
 	header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
-	include(BASE_DIR.'/views/errors/error404.php');
+	include(BASE_DIR.'/views/errors/view-error404.php');
 }

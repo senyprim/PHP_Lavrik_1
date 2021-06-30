@@ -12,11 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 if ($result){
     $titleView='Article deleted';
-    include(BASE_DIR.'/views/succes.php');
+    include(BASE_DIR.'/views/view-succes.php');
 } elseif($validArticle){
     $titleView='Something went wrong.Article not deleted. Try later';
-    include(BASE_DIR.'/views/fail.php');
+    include(BASE_DIR.'/views/view-fail.php');
 } else {
     $titleView='Article not found';
-    include(BASE_DIR.'/views/fail.php');
+    include(BASE_DIR.'/views/view-fail.php');
 };

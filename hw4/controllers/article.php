@@ -13,8 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 }
 
 if (!empty($fields)){
-	include(BASE_DIR.'/views/article.php');
+	include(BASE_DIR.'/views/view-article.php');
 } else {
 	header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
-	include(BASE_DIR.'/views/errors/error404.php');
+	include(BASE_DIR.'/views/errors/view-error404.php');
 };

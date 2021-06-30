@@ -39,10 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($article)) {
 
 if (empty($article)) {
 	$titleView = 'Article not found';
-	include(BASE_DIR . '/views/fail.php');
+	include(BASE_DIR . '/views/view-fail.php');
 } else {
 	$titleForm = 'Edit Article';
 	$buttonForm = 'Edit Article';
 	$action='edit';
-	include(BASE_DIR . '/views/article-form.php');
+	include(BASE_DIR . '/views/view-article-form.php');
 }

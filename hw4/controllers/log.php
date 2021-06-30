@@ -12,11 +12,11 @@ if ($detailedMode) {
 }
 if ($detailedMode && $error){
     $titleView = 'File log not found';
-	include(BASE_DIR . '/views/fail.php');
+	include(BASE_DIR . '/views/view-fail.php');
 } elseif($detailedMode && !$error){
     $titleView = $file;
-	include(BASE_DIR . '/views/log.php');
+	include(BASE_DIR . '/views/view-log.php');
 } else {
     $titleView = 'Список логов';
-    include(BASE_DIR . '/views/log-list.php');
+    include(BASE_DIR . '/views/view-log-list.php');
 };
