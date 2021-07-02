@@ -1,0 +1,16 @@
+{"time":"22:56:32","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:28:09","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:32:50","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:33:56","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:34:40","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:36:42","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:37:57","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:38:15","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:40:01","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:40:16","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:40:24","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:45:07","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:46:29","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:46:39","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:47:54","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
+{"time":"23:49:13","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=log"}
