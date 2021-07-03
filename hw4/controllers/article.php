@@ -11,7 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 }
 
 if (!empty($fields)){
-	$content = render('articles/article',$fields);
+	$content = render('two-col-content',[
+		'aside'=>render('aside',['id'=>$fields['id']]),
+		'article'=>render('articles/article',$fields)
+	]
+);
 } else {
 	header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
 	$content=render('erros/404');

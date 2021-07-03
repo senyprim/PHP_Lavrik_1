@@ -5,18 +5,21 @@ $result = false;
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $id = ($_POST['id'] ?? '');
     //Валидация id
-    $validArticle = checkArticleId($id) && existArticle(intval($id));
+    $validArticle = checkArticleId($id) && !!($article=getArticle(intval($id)));
+    
     if ($validArticle) {
         $result = removeArticle($id);
     }
 }
 if ($result){
-    $titleView='Article deleted';
-    include(BASE_DIR.'/views/view-succes.php');
+    $notice = 'Article was deleted successfull.';
 } elseif($validArticle){
-    $titleView='Something went wrong.Article not deleted. Try later';
-    include(BASE_DIR.'/views/view-fail.php');
+    $notice='Something went wrong.Article not deleted. Try later';
 } else {
-    $titleView='Article not found';
-    include(BASE_DIR.'/views/view-fail.php');
+    $notice='Article not found';
 };
+$content = render('two-col-content',[
+    'notice'=>$notice,
+    'aside'=>render('aside',['id'=>$article['id']??'']),
+    'article'=>render('articles/article',$article??[]),
+]);
