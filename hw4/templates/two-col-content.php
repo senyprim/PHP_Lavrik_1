@@ -1,7 +1,7 @@
 <div class="container">
-    <? if (!!$notice) : ?>
+    <? if (!!($notice??'')) : ?>
         <div class="alert alert-primary" role="alert">
-            <?= $notice ?>
+            <?= $notice??'' ?>
         </div>
     <? endif ?>
 

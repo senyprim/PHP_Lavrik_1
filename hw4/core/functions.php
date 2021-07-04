@@ -13,7 +13,7 @@ function extractFields(?array $array,?array $fieldNames):array{
     $result=[];
     if (!$array || !$fieldNames) return $result;
     foreach($fieldNames as $field){
-        $result[$field] = trim($array[$field]);
+        $result[$field] = trim($array[$field]??'');
     }
     return $result;
 }
