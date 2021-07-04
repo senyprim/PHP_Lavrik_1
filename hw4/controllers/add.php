@@ -1,6 +1,4 @@
 <?php
-include_once (BASE_DIR.'/models/article.php');
-include_once (BASE_DIR.'/models/category.php');
 
 $fieldNames=['title','content','id_category'];
 $result = false;
@@ -8,7 +6,7 @@ $errors = [];
 $fields=[];
 //Запрашиваем все категории чтобы показать список
 //(так как при ошибочных post запросах мы должны показывать все категории опять)
-$categories =getAllCategory();
+$categories = getAllCategory();
 if ('POST'==$_SERVER["REQUEST_METHOD"]) {
 	$fields=extractFields($_POST,$fieldNames);
 	//Валидация
@@ -17,7 +15,7 @@ if ('POST'==$_SERVER["REQUEST_METHOD"]) {
 		!checkCategoryId($fields['id_category']) ||
 		!arrayContainsId($categories,intval($fields['id_category'])))
 	{
-		$errors[]='Выбранная категория не существует';
+		$errors['category']='Выбранная категория не существует';
 	}
 	if (empty($errors))
 	{
@@ -27,9 +25,22 @@ if ('POST'==$_SERVER["REQUEST_METHOD"]) {
 		exit();
 	}
 }
-$titleForm='Add Article';
-$buttonForm='Add Article';
-$action='add';
-include(BASE_DIR.'/views/view-article-form.php');
+$aside = render('aside',['id'=>$fields['id']??'']);
+
+$form = render('articles/article-form',[
+	'title'=>'Add Article',
+	'action'=>'add',
+	'categories'=>$categories,
+	'button'=>'Add Article',
+	'fields'=>$fields,
+	'errors'=>$errors,
+]);
+
+$content = render ('two-col-content',[
+	'notice'=>'',
+	'aside'=>$aside,
+	'article'=>$form,
+]);
+
 
 

@@ -55,14 +55,12 @@ function editArticle(array $article):bool
 function validateArticle(array $article):array
 {
     $errors=[];
-    if (!$article['title'] || !$article['content']) {
-        $errors[]='Заголовок и текст - должны быть заполненны';
+    if (!$article['title'] || mb_strlen($article['title'])<ARTICLE_MIN_SIZE_TITLE) {
+        $errors['title']='Заголовок должeн быть не меньше '.ARTICLE_MIN_SIZE_TITLE.'символов';
     };
-    if ($article['title'] && mb_strlen($article['title'])<ARTICLE_MIN_SIZE_TITLE){
-        $errors[]='Длина заголовка должна быть не меньше '.ARTICLE_MIN_SIZE_TITLE.'символов';
-    };
-    if ($article['content'] && mb_strlen($article['content'])<ARTICLE_MIN_SIZE_CONTENT){
-        $errors[]='Длина текста должна быть не меньше '.ARTICLE_MIN_SIZE_CONTENT.' символов';
+    
+    if (!$article['content'] || mb_strlen($article['content'])<ARTICLE_MIN_SIZE_CONTENT){
+        $errors['content']='Текст должн быть не меньше '.ARTICLE_MIN_SIZE_CONTENT.' символов';
     }
     
     return  $errors;

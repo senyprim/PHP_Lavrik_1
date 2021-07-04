@@ -55,6 +55,7 @@ function validateCategory(array $category):array
     }
     return $error;
 }
+
 function checkCategoryId(string $id){
     return preg_match(CATEGORY_REGEX_CHECK_ID,$id??'');
 }

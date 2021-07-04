@@ -1,7 +1,10 @@
 <div class="container">
-    <div class="alert alert-primary" role="alert">
-        <?= $notice ?>
-    </div>
+    <? if (!!$notice) : ?>
+        <div class="alert alert-primary" role="alert">
+            <?= $notice ?>
+        </div>
+    <? endif ?>
+
     <div class="row">
         <div class="col-3">
             <?= $aside ?>

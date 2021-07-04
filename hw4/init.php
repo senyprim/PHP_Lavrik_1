@@ -44,3 +44,6 @@ include_once (BASE_DIR.'/core/functions.php');
 include_once (BASE_DIR.'/core/system.php');
 include_once (BASE_DIR . '/models/logs.php');
 include_once (BASE_DIR . '/models/article.php');
+include_once (BASE_DIR . '/models/category.php');
+include_once (BASE_DIR . '/controllers/add.php');
+

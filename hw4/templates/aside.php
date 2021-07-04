@@ -6,7 +6,7 @@
         </a>
         <form method="post" action="index.php?c=delete">
             <input type="hidden" name="id" value="<?= $id ?>">
-            <button class="list-group-item list-group-item-action">Delete</button>
+            <button class="list-group-item list-group-item-action  <?= $disabled ?>">Delete</button>
         </form>
         <a href="#" class="list-group-item list-group-item-action">A third link item</a>
         <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
