@@ -23,6 +23,7 @@ const BASE_URL = 'lavrik.local/hw4/';
         const CATEGORY_ERROR_NOT_EXIST='Выбранная категория не существует';
         //Article
         const ARTICLE_QUERY_GET_ALL= 'select a.*,b.name as category from article a left join category b on a.id_category=b.id order by a.id';
+        const ARTICLE_QUERY_GET_THIS_CATEGORY= 'select a.*,b.name as category from article a left join category b on a.id_category=b.id  where a.id_category=:id_category order by a.id';
         const ARTICLE_QUERY_GET= 'select a.*,b.name as category from article a left join category b on a.id_category=b.id where a.id=:id';
         const ARTICLE_QUERY_ADD= 'insert  article (title,content,id_category)
             values (:title,:content,:id_category)';
@@ -39,11 +40,15 @@ const LOG_REGEX_FILE= '/^\d{4}-\d{2}-\d{2}\.txt$/i';
 //Views
 const BASE_DIR_VIEW=BASE_DIR.'/templates';
 
+const ARTICLE_ADD_SUCCESFULL='';
+const ARTICLE_DELETE_SUCCESFULL='';
+const ARTICLE_UPDATE_SUCCESFULL='';
+
 include_once (BASE_DIR.'/core/db.php');
 include_once (BASE_DIR.'/core/functions.php');
 include_once (BASE_DIR.'/core/system.php');
 include_once (BASE_DIR . '/models/logs.php');
 include_once (BASE_DIR . '/models/article.php');
 include_once (BASE_DIR . '/models/category.php');
-include_once (BASE_DIR . '/controllers/add.php');
+
 

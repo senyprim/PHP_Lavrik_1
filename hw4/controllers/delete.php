@@ -9,6 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     if ($validArticle) {
         $result = removeArticle($id);
+        if ($result){
+            $article['id']=null;
+        }
     }
 }
 if ($result){

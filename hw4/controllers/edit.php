@@ -1,5 +1,4 @@
 <?php
-include_once(BASE_DIR . '/models/category.php');
 
 $fieldNames = ['title', 'content', 'id_category', 'id'];
 $result = false;
@@ -13,7 +12,7 @@ $id = ($_SERVER["REQUEST_METHOD"] === "GET") ? $_GET['id'] ?? '' : $_POST['id'] 
 if (checkArticleId($id)) {
 	$article = getArticle(intval($id));
 	$fields = extractFields($article, $fieldNames);
-}
+} 
 //Если запрос пост и такая запись существует
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($article)) {
 	//Берем данные с запроса
@@ -21,28 +20,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($article)) {
 	//Валидируем
 	$errors = validateArticle($fields);
 	if (
-		!checkCategoryId($article['id_category']) ||
-		!arrayContainsId($categories, intval($article['id_category']))
+		!checkCategoryId($fields['id_category']) ||
+		!arrayContainsId($categories, intval($fields['id_category']))
 	) {
-		$errors[] = CATEGORY_ERROR_NOT_EXIST;
+		$errors['category'] = CATEGORY_ERROR_NOT_EXIST;
 	}
 	if (empty($errors)) {
 		$fields = encodeFields($fields);
 		$result = editArticle($fields);
+		$notice=$result
+			?'Article update succesfull!'
+			:'Something went wrong - record not updated. Try later';
 		if ($result) {
-			header('Location: index.php?c=article&id=' . $fields['id']);
+			header('Location: index.php?c=article&id='.$fields['id'].'&notice='.$notice);
 			exit();
 		}
-		$errors[] = 'Something went wrong - record not updated. Try later';
 	}
 }
-
+$aside = render('aside',['id'=>$fields['id']]);
+$form = render('articles/article-form',[
+	'title'=>'Edit Article',
+	'action'=>'edit',
+	'categories'=>$categories,
+	'button'=>'Update Article',
+	'fields'=>$fields,
+	'errors'=>$errors,
+]);
 if (empty($article)) {
-	$titleView = 'Article not found';
-	include(BASE_DIR . '/views/view-fail.php');
-} else {
-	$titleForm = 'Edit Article';
-	$buttonForm = 'Edit Article';
-	$action='edit';
-	include(BASE_DIR . '/views/view-article-form.php');
-}
+	$notice = 'Article not found';
+} 
+$content = render ('two-col-content',[
+	'notice'=>$notice,
+	'aside'=>$aside,
+	'article'=>$form,
+]);

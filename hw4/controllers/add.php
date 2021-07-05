@@ -21,11 +21,12 @@ if ('POST'==$_SERVER["REQUEST_METHOD"]) {
 	{
 		$fields=encodeFields($fields);
 		$result = addArticle( $fields );
-		header('Location: index.php?c=article&id='.getLastId());
+		$notice = $result?'Запись успешно сохраннена':'Что то пошло не так. Запись не сохраннена. Попробуйте позже';
+		header('Location: index.php?c=article&id='.getLastId().'&notice='.$notice);
 		exit();
 	}
 }
-$aside = render('aside',['id'=>$fields['id']??'']);
+$aside = render('aside',['id'=>$fields['id']]);
 
 $form = render('articles/article-form',[
 	'title'=>'Add Article',
@@ -37,7 +38,7 @@ $form = render('articles/article-form',[
 ]);
 
 $content = render ('two-col-content',[
-	'notice'=>'',
+	'notice'=>$notice,
 	'aside'=>$aside,
 	'article'=>$form,
 ]);

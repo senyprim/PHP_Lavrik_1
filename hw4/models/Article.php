@@ -12,6 +12,9 @@ function getArticle(int $id): ?array
         $result=query(ARTICLE_QUERY_GET, [':id' => $id])->fetch();
         return $result ? $result : null;
 }
+function getAllArticleByCategory(int $id_category):?array{
+    return query(ARTICLE_QUERY_GET_THIS_CATEGORY,[':id_category'=>$id_category])->fetchAll()??null;
+}
 
 function addArticle(?array $article): bool
 {
@@ -27,11 +30,11 @@ function addArticle(?array $article): bool
         ]
     );
 
-    return !!$result->rowCount();
+    return $result===false?false:true;
 }
 function removeArticle(int $id):bool
 {
-    return !!query(ARTICLE_QUERY_REMOVE, [':id' => $id])->rowCount();
+    return query(ARTICLE_QUERY_REMOVE, [':id' => $id])==false?false:true;
 }
 function existArticle(int $id):bool
 {
@@ -50,7 +53,8 @@ function editArticle(array $article):bool
                 ':content' => $article['content'],
                 ':id_category' => $article['id_category'],
             ]);
-        return !!$result->rowCount();
+        
+        return $result==false?false:true;
 }
 function validateArticle(array $article):array
 {

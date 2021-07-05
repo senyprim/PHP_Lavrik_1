@@ -13,7 +13,7 @@ if (checkControllerName($cname) && file_exists($path)){
 }
 else{
 	header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
-	$content=render('/erros/404');
+	$content=render('errors/404');
 }
 
 $page= render('layout',[

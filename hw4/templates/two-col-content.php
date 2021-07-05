@@ -9,7 +9,7 @@
         <div class="col-3">
             <?= $aside ?>
         </div>
-        <div class="col">
+        <div class="col-9">
             <?= $article ?>
         </div>
     </div>

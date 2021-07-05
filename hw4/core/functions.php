@@ -13,7 +13,7 @@ function extractFields(?array $array,?array $fieldNames):array{
     $result=[];
     if (!$array || !$fieldNames) return $result;
     foreach($fieldNames as $field){
-        $result[$field] = trim($array[$field]??'');
+        $result[$field] =isset($array[$field])?trim($array[$field]):null;
     }
     return $result;
 }
@@ -23,4 +23,9 @@ function encodeFields(array $fields):array{
         $result[$key] = htmlspecialchars($value);
     }
     return $result;
+}
+function user_sort(?array $a):?array
+{
+    if (!$a) return $a;
+    sort($a);return $a;
 }
