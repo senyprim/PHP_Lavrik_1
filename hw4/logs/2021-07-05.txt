@@ -199,3 +199,14 @@
 {"time":"17:34:33","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?id_category=1"}
 {"time":"17:34:38","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=article&id=42","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php"}
 {"time":"17:34:40","ip":"127.0.0.1","uri":"\/hw4\/index.php?id_category=2","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=article&id=42"}
+{"time":"21:49:13","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?id_category=2"}
+{"time":"21:49:16","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=article&id=37","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php"}
+{"time":"21:49:19","ip":"127.0.0.1","uri":"\/hw4\/index.php?id_category=1","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=article&id=37"}
+{"time":"21:49:21","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?id_category=1"}
+{"time":"21:49:23","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=article&id=42","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php"}
+{"time":"21:49:25","ip":"127.0.0.1","uri":"\/hw4\/index.php?id_category=2","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=article&id=42"}
+{"time":"21:49:28","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?id_category=2"}
+{"time":"21:49:31","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=article&id=42","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php"}
+{"time":"21:49:36","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=article&id=425","method":"GET","referer":""}
+{"time":"21:49:42","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=logs","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=article&id=425"}
+{"time":"21:49:45","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=logs&file=2021-07-02.txt","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=logs"}
