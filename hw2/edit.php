@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         $result = editArticle($id, $title, $content);
         if ($result) {
-            header('Location: index.php');
+            header('Location: article/'+$id);
             exit(200);
         }
     }

@@ -12,6 +12,11 @@ function getCategory(int $id): ?array
         $result=query(CATEGORY_QUERY_GET, [':id' => $id])->fetch();
         return $result ? $result : null;
 }
+function getCategoryByName(string $name){
+    $result=query(CATEGORY_QUERY_GET_BY_NAME, [':name' => $name])->fetch();
+        return $result ? $result : null;
+}
+
 
 function addCategory(?array $category): bool
 {
@@ -51,11 +56,11 @@ function validateCategory(array $category):array
 {
     $error=[];
     if (gettype($category['name'])!=='string' || mb_strlen($category['name'])<CATEGORY_MIN_SIZE_NAME){
-            $error[]='Длина имени категории не может быть меньше '.CATEGORY_MIN_SIZE_NAME.'символов';
+            $error['name']='Длина имени категории не может быть меньше '.CATEGORY_MIN_SIZE_NAME.'символов';
     }
     return $error;
 }
 
-function checkCategoryId(string $id){
+function checkCategoryId(?string $id){
     return preg_match(CATEGORY_REGEX_CHECK_ID,$id??'');
 }

@@ -1,7 +1,8 @@
 <?php
 //SYSTEM
 const BASE_DIR= __DIR__;
-const BASE_URL = 'lavrik.local/hw4/';
+const BASE_URL = '/hw4';
+const DIRECTORY_CONTROLLER=BASE_DIR.'/controllers';
 
 //DB
         const DB_HOST= 'localhost';
@@ -12,6 +13,7 @@ const BASE_URL = 'lavrik.local/hw4/';
         //CATEGORY
         const CATEGORY_QUERY_GET_ALL='select * from category';
         const CATEGORY_QUERY_GET= 'select * from category where id= :id';
+        const CATEGORY_QUERY_GET_BY_NAME= 'select * from category where name= :name';
         const CATEGORY_QUERY_ADD= 'insert  category (name) values (:name)';
         const CATEGORY_QUERY_REMOVE= 'delete from category where id=:id';
         const CATEGORY_QUERY_UPDATE= 'update category set name=:name where id=:id';
@@ -50,5 +52,7 @@ include_once (BASE_DIR.'/core/system.php');
 include_once (BASE_DIR . '/models/logs.php');
 include_once (BASE_DIR . '/models/article.php');
 include_once (BASE_DIR . '/models/category.php');
+
+require_once (BASE_DIR . '/twig/vendor/autoload.php');
 
 

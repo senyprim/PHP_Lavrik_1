@@ -210,3 +210,17 @@
 {"time":"21:49:36","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=article&id=425","method":"GET","referer":""}
 {"time":"21:49:42","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=logs","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=article&id=425"}
 {"time":"21:49:45","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=logs&file=2021-07-02.txt","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=logs"}
+{"time":"22:05:14","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=logs&file=2021-07-02.txt","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=logs"}
+{"time":"22:05:17","ip":"127.0.0.1","uri":"\/hw4\/index.php","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=logs&file=2021-07-02.txt"}
+{"time":"22:05:23","ip":"127.0.0.1","uri":"\/hw4\/","method":"GET","referer":""}
+{"time":"22:05:33","ip":"127.0.0.1","uri":"\/hw4\/","method":"GET","referer":"http:\/\/lavrik.local\/"}
+{"time":"22:06:02","ip":"127.0.0.1","uri":"\/hw4\/","method":"GET","referer":""}
+{"time":"22:09:11","ip":"127.0.0.1","uri":"\/hw4\/init.phpd","method":"GET","referer":""}
+{"time":"22:09:17","ip":"127.0.0.1","uri":"\/hw4\/init.phpd","method":"GET","referer":""}
+{"time":"22:09:24","ip":"127.0.0.1","uri":"\/hw4\/","method":"GET","referer":""}
+{"time":"22:09:29","ip":"127.0.0.1","uri":"\/hw4\/","method":"GET","referer":"http:\/\/lavrik.local\/"}
+{"time":"22:10:40","ip":"127.0.0.1","uri":"\/hw4\/","method":"GET","referer":""}
+{"time":"22:11:43","ip":"127.0.0.1","uri":"\/hw4\/sdsdsds","method":"GET","referer":""}
+{"time":"22:11:57","ip":"127.0.0.1","uri":"\/hw4\/sdsdsds","method":"GET","referer":""}
+{"time":"22:12:53","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=add","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/sdsdsds"}
+{"time":"22:13:09","ip":"127.0.0.1","uri":"\/hw4\/index.php?c=logs","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/index.php?c=add"}

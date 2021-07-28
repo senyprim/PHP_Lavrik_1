@@ -5,6 +5,7 @@ define('REGEX_LOG_FILE', '/^\d{4}-\d{2}-\d{2}\.txt$/i');
 
 function checkLogFileName(string $file): bool
 {
+    if (empty($file)) return false;
     return !!preg_match(REGEX_LOG_FILE, $file);
 }
 function hasLogFileName(string $file): bool

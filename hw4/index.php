@@ -1,22 +1,33 @@
 <?php
+
 include (__DIR__.'/init.php');
-
 addLog(getLogInfo());
+//Парсим входящий урл
+$url = $_GET['querysystemurl'] ?? '';
+$routes=include('routes.php');
+$routerRes = parseUrl(
+	$url, 
+	$routes
+);
+//Регистрируем параметры запроса
+$controller=$routerRes['controller'];
+define('URL_PARAMS',$routerRes['params']);
 
-$cname = $_GET['c'] ?? 'index';
-$path = "controllers/$cname.php";
-$title='Articles';
-$header=render('header');
-$footer=render('footer');
-if (checkControllerName($cname) && file_exists($path)){
-    include_once($path);
+//Если такого контролера нет переводим на контролер 404
+$pathController=DIRECTORY_CONTROLLER.'/'.$controller.'.php';
+if (!file_exists($pathController)){
+	$controller='errors/404';
+	$pathController=DIRECTORY_CONTROLLER.'/'.$controller.'.php';
 }
-else{
-	header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
-	$content=render('errors/404');
-}
+$title='Страница статей';
+$header=renderTwig('header');
+$footer=renderTwig('footer');
 
-$page= render('layout',[
+//Запускаем контроллер
+include_once($pathController);
+
+
+$page= renderTwig('layout',[
 	'title'=>$title,
 	'header'=>$header,
 	'content'=>$content,

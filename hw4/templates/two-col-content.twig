@@ -1,16 +1,16 @@
 <div class="container">
-    <? if (!!($notice??'')) : ?>
+    {% if notice??null %}
         <div class="alert alert-primary" role="alert">
-            <?= $notice??'' ?>
+            {{notice}}
         </div>
-    <? endif ?>
+    {% endif %}
 
     <div class="row">
         <div class="col-3">
-            <?= $aside ?>
+           {{aside}}
         </div>
         <div class="col-9">
-            <?= $article ?>
+            {{article}}
         </div>
     </div>
 </div>

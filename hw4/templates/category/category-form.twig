@@ -1,0 +1,36 @@
+{# 
+title - Заголовок 
+action - 
+errors - Ошибки
+fields - поля формы
+button - Заголовок кнопки
+ #}
+<form action="{{constant('BASE_URL')}}/category/{{action}}" method="post"
+ class="needs-validation" novalidate>
+    <h2 class="col text-center alert alert-primary">
+        {{title}}
+    </h2>
+    <input type="hidden" name="id" value="{{fields.id??null}}">
+    <div class="row mb-3">
+        <div class="col">
+            <label clas="form-label" for="name-field">
+                Category:
+            </label>
+            <input id="name-field" required 
+            class="form-control {{errors.name??null?'is-invalid'}}"
+             type="text" name="name" 
+             value="{{fields.name??null}}" 
+             placeholder="Введите имя категории" 
+             aria-describedby="name-field-validation">
+            <div class="invalid-feedback" id="name-field-validation">
+                {{errors.name??null}}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <button class="btn btn-primary">{{button}}</button>
+        </div>
+    </div>
+    </div>
+</form>

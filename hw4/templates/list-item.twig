@@ -1,0 +1,7 @@
+{# itemTemplate - путь шаблона одного элемента item - поля элемента list - список элементов #}
+<div class="list-group">
+    <h2>{{list?title:'None any items'}}</h2>
+    {% for item in list %}
+    {{ include(itemTemplate~'.twig',item)}}
+    {% endfor %}
+</div>

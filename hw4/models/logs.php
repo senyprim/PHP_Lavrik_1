@@ -9,9 +9,9 @@ function hasLogFileName(string $file): bool
     return checkLogFileName($file) && is_file(LOG_DIRECTORY . "/$file");
 }
 
-function getLogFile(string $file): ?array
+function getLogFile(?string $file): ?array
 {
-    if (!hasLogFileName($file)) {
+    if (empty($file) || !hasLogFileName($file)) {
         return null;
     }
 
@@ -23,12 +23,13 @@ function getLogFile(string $file): ?array
 }
 function getLogFiles(): array
 {
-    return array_filter(
-        scandir(LOG_DIRECTORY),
-        function ($file) {
-            return is_file(LOG_DIRECTORY . "/$file") && checkLogFileName($file);
+    $result=[];
+    foreach(scandir(LOG_DIRECTORY) as $file){
+        if (is_file(LOG_DIRECTORY . "/$file") && checkLogFileName($file)){
+            $result[]=pathinfo($file,PATHINFO_FILENAME);
         }
-    );
+    };
+    return $result;
 }
 function logsStrToArr(string $str): array
 {

@@ -11,7 +11,7 @@ function arrayContainsId(array $array, ?int $id):bool{
 }
 function extractFields(?array $array,?array $fieldNames):array{
     $result=[];
-    if (!$array || !$fieldNames) return $result;
+    if (empty($fieldNames)) return $result;
     foreach($fieldNames as $field){
         $result[$field] =isset($array[$field])?trim($array[$field]):null;
     }
@@ -27,5 +27,6 @@ function encodeFields(array $fields):array{
 function user_sort(?array $a):?array
 {
     if (!$a) return $a;
-    sort($a);return $a;
+    sort($a);
+    return $a;
 }

@@ -1,0 +1,12 @@
+<div class="col-sm">
+    <div class="list-group">
+        <a href="{{constant('BASE_URL')}}/{{editPath}}/{{id}}" 
+        class="list-group-item list-group-item-action {{id?'':'disabled'}}" aria-current="true">
+            Edit
+        </a>
+        <form method="post" action="{{constant('BASE_URL')}}/{{deletePath}}">
+            <input type="hidden" name="id" value="{{id}}">
+            <button class="list-group-item list-group-item-action {{id?:'disabled'}}">Delete</button>
+        </form>
+    </div>
+</div>

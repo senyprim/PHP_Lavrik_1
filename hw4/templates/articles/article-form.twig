@@ -1,0 +1,67 @@
+<form action="{{constant('BASE_URL')}}/article/{{action}}" method="post"
+ class="needs-validation" novalidate>
+    <h2 class="col text-center alert alert-primary">
+        {{title}}
+    </h2>
+    <input type="hidden" name="id" value="{{fields.id??null}}">
+    <div class="row mb-3">
+        <div class="col">
+            <label clas="form-label" for="title-field">
+                Title:
+            </label>
+            <input id="title-field" required 
+            class="form-control {{errors.title??null?'is-invalid'}}"
+             type="text" name="title" 
+             value="{{fields.title??null}}" 
+             placeholder="Введите заголовок статьи" 
+             aria-describedby="title-field-validation">
+            <div class="invalid-feedback" id="title-field-validation">
+                {{errors.title??null}}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <label clas="form-label" for="category-field">
+                Category:
+            </label>
+            <select id="category-field" required 
+            class="form-control  {{errors.category??null?'is-invalid'}}" 
+            name="id_category" 
+            placeholder="Введите текст статьи" 
+            aria-describedby="category-field-validation">
+                <option value="" disabled selected>Выберите категорию статьи</option>
+                {%for category in  categories %}
+                    <option value="{{category.id}}" 
+                        {{category.id == fields.id_category?'selected'}}>
+                        {{category.name}}
+                    </option>
+                {%endfor%}
+            </select>
+            <div class="invalid-feedback" id="category-field-validation">
+                {{errors.category??null}}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <label clas="form-label" for="content-field">
+                Content :
+            </label>
+            <textarea id="content-field" required 
+            class="form-control {{errors.content??null?'is-invalid'}}" 
+            name="content" placeholder="Введите текст статьи" 
+            aria-describedby="content-field-validation">{{fields.content??null}}</textarea>
+            </label>
+            <div class="invalid-feedback" id="content-field-validation">
+                {{errors.content??null}}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <button class="btn btn-primary">{{button}}</button>
+        </div>
+    </div>
+    </div>
+</form>

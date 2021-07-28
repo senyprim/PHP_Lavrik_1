@@ -69,6 +69,6 @@ function validateArticle(array $article):array
     
     return  $errors;
 }
-function checkArticleId(string $id){
+function checkArticleId(?string $id){
     return preg_match(ARTICLE_REGEX_CHECK_ID,$id??'');
 }
