@@ -33,6 +33,7 @@ const DIRECTORY_CONTROLLER=BASE_DIR.'/controllers';
         const ARTICLE_QUERY_UPDATE= 'update article set title=:title, content=:content, id_category=:id_category where id=:id';
         const ARTICLE_QUERY_EXIST= 'select 1 from article where id=:id';
 
+        
         const ARTICLE_MIN_SIZE_TITLE=2;
         const ARTICLE_MIN_SIZE_CONTENT=2;
         const ARTICLE_REGEX_CHECK_ID='/^[1-9]\d*$/';
@@ -52,6 +53,7 @@ include_once (BASE_DIR.'/core/system.php');
 include_once (BASE_DIR . '/models/logs.php');
 include_once (BASE_DIR . '/models/article.php');
 include_once (BASE_DIR . '/models/category.php');
+include_once (BASE_DIR . '/models/user.php');
 
 require_once (BASE_DIR . '/twig/vendor/autoload.php');
 

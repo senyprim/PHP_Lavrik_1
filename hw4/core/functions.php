@@ -30,3 +30,24 @@ function user_sort(?array $a):?array
     sort($a);
     return $a;
 }
+//Удаляет токен из сессии и куков если по нему не возможно авторизоваться (просроченный или недествительный)
+function clearToken(){
+    unset($_SESSION['token']);
+    setcookie('token','',time()-1,BASE_URL);
+}
+//Возвращает залогиненного пользователя
+function getLoginUser():?array{
+    $token = $_SESSION['token'] ?? $_COOKIE['token'] ?? null;
+    $user=null;
+	if ($token != null) {
+		//Найти пользователя по токену
+		$user = getUserBySessionToken($token);
+		//Удалить токен из сессии и куков при недействительном пользователе
+		if (empty($user) || !isValidUser($user)) {
+			clearToken();
+            return null;
+		}
+	}
+    return $user;
+}
+

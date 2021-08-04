@@ -1,0 +1,22 @@
+{# 
+loginFrm[] - данные формы(login,remember)
+action - 
+#}
+        <form method="POST" action="{{constant('BASE_URL')}}/{{action}}" class="row g-3">
+
+			<div class="col-auto">
+				<input type="text" class="form-control" placeholder="Login:" id="loginFrm[login]" name="loginFrm[login]" value="{{loginFrm.login??''}}">
+			</div>
+			<div class="col-auto">
+				<input type="password" class="form-control" placeholder="Password:" name="loginFrm[password]" id="password">
+			</div>
+			<div class="col-auto">
+				<input class="form-check-input" type="checkbox" {{loginFrm.remember??''?'checked':''}} name="loginFrm[remember]" id="LoginFrm[remember]" >
+				<label class="form-check-label text-light" for="LoginFrm[remember]">Remember<br>me</label>
+			</div>
+        
+			<button type="submit" class="btn btn-primary col-auto">Login</button>
+			<a class="text-light col-auto" href="{{constant('BASE_URL')}}/register">Register<br> New User</a>
+			</div>
+				
+        </form>

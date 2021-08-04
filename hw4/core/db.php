@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+const INTEGER_ID_REGEX_VALIDATE='/^[1-9]\d*$/';
 
 function getPDO()
 {
@@ -35,5 +36,8 @@ function query(string $query, array $params = []): PDOStatement
     $prepare->execute($params); //Выполняем запрос
     checkError($prepare); //Вызываем ошибку если нужно
     return $prepare; //Возвращаем результат
+}
+function checkIntId(?string $id){
+    return !!preg_match(INTEGER_ID_REGEX_VALIDATE,$id??'');
 }
 

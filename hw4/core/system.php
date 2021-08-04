@@ -48,3 +48,10 @@ function parseUrl(string $url, array $routs): array
 
     return $result;
 }
+function generateToken(?string $alpha=null):?string{
+    $result='';
+    $alpha=$alpha??'abcdefghijklmnopqrstuvwxyz';
+    for($index=0;$index<strlen($alpha)-1;$index++)
+        $result.=$alpha[random_int(0,strlen($alpha)-1)];
+    return $result;
+}

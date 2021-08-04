@@ -68,5 +68,13 @@ return (function(){
             'route'=>"/^$/",
             'controller'=>'article/index',
         ],
+        [
+            'route'=>"/^login\/?$/",
+            'controller'=>'auth/login',
+        ],
+        [
+            'route'=>"/^register\/?$/",
+            'controller'=>'auth/register',
+        ]
     ];
 })();

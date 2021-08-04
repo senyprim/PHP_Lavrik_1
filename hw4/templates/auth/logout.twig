@@ -1,0 +1,10 @@
+{# 
+userLogin - данные о пользователе
+action - 
+#}
+        <form method="POST" action="{{constant('BASE_URL')}}/{{action}}" class="row g-3">
+            <div class="col-auto">
+                <span class="text-light">Hello {{userLogin}}</span>
+			    <button type="submit" class="btn btn-primary col-auto" name=logout>LogOut</button>
+	        </div>
+        </form>

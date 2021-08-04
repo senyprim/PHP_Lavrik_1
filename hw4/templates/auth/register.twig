@@ -1,0 +1,91 @@
+{# 
+title - заголовок
+action - действие
+fields[] - данные для формы (id,login,id-role,password,password_confirm)
+roles[] - все роли (id,name)
+errors[] - ошибки (login,role,password,password_confirm)
+button
+ #}
+<form action="{{constant('BASE_URL')}}/{{action}}" method="post"
+ class="needs-validation" novalidate>
+    <h2 class="col text-center alert alert-primary">
+        {{title}}
+    </h2>
+    <input type="hidden" name="id" value="{{fields.id??null}}">
+    <div class="row mb-3">
+        <div class="col">
+            <label clas="form-label" for="login-field">
+                Login:
+            </label>
+            <input id="login-field" required 
+            class="form-control {{errors.login??null?'is-invalid'}}"
+             type="text" name="login" 
+             value="{{fields.login??null}}" 
+             placeholder="Введите имя пользователя" 
+             aria-describedby="login-field-validation">
+            <div class="invalid-feedback" id="title-field-validation">
+                {{errors.login??null}}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <label clas="form-label" for="role-field">
+                Role:
+            </label>
+            <select id="role-field" required 
+            class="form-control  {{errors.role??null?'is-invalid'}}" 
+            name="id_role" 
+            placeholder="Выберите роль пользователя" 
+            aria-describedby="role-field-validation">
+                <option value="" disabled selected>Выберите роль пользователя</option>
+                {%for role in roles %}
+                    <option value="{{role.id}}" 
+                        {{role.id == fields.id_role?'selected'}}>
+                        {{role.name}}
+                    </option>
+                {%endfor%}
+            </select>
+            <div class="invalid-feedback" id="role-field-validation">
+                {{errors.role??null}}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <label clas="form-label" for="password-field">
+                Password :
+            </label>
+            <input type="password" id="password-field" required 
+            class="form-control {{errors.password??null?'is-invalid'}}" 
+            name="password" placeholder="Введите пароль" 
+            aria-describedby="password-field-validation" value="{{fields.password??null}}"/>
+            </label>
+            <div class="invalid-feedback" id="password-field-validation">
+                {{errors.password??null}}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <label clas="form-label" for="password-confirm-field">
+                Confirm :
+            </label>
+            <input type="password" id="password_confirm-field" required 
+            class="form-control {{errors.password_confirm??null?'is-invalid'}}" 
+            name="password_confirm" placeholder="Подтвердите пароль" 
+            aria-describedby="password_confirm-field-validation" value=""/>
+            </label>
+            <div class="invalid-feedback" id="password_confirm-field-validation">
+                {{errors.password_confirm??null}}
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="id_status" value="1"/>
+    <div class="row mb-3">
+        <div class="col">
+            <button class="btn btn-primary">{{button}}</button>
+        </div>
+    </div>
+    </div>
+</form>
