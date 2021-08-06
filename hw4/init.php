@@ -38,7 +38,7 @@ const DIRECTORY_CONTROLLER=BASE_DIR.'/controllers';
         const ARTICLE_MIN_SIZE_CONTENT=2;
         const ARTICLE_REGEX_CHECK_ID='/^[1-9]\d*$/';
 //Logs
-const LOG_DIRECTORY= __DIR__.'/logs';
+const LOG_DIRECTORY= __DIR__.'/log';
 const LOG_REGEX_FILE= '/^\d{4}-\d{2}-\d{2}\.txt$/i';
 //Views
 const BASE_DIR_VIEW=BASE_DIR.'/templates';
@@ -50,10 +50,10 @@ const ARTICLE_UPDATE_SUCCESFULL='';
 include_once (BASE_DIR.'/core/db.php');
 include_once (BASE_DIR.'/core/functions.php');
 include_once (BASE_DIR.'/core/system.php');
-include_once (BASE_DIR . '/models/logs.php');
-include_once (BASE_DIR . '/models/article.php');
-include_once (BASE_DIR . '/models/category.php');
-include_once (BASE_DIR . '/models/user.php');
+include_once (BASE_DIR . '/data/models/logs.php');
+include_once (BASE_DIR . '/data/models/article.php');
+include_once (BASE_DIR . '/data/models/category.php');
+include_once (BASE_DIR . '/data/models/user.php');
 
 require_once (BASE_DIR . '/twig/vendor/autoload.php');
 

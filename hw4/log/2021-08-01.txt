@@ -1,0 +1,1 @@
+{"time":"08:49:50","ip":"127.0.0.1","uri":"\/hw4\/assets\/vendor\/bootstrap\/js\/bootstrap.bundle.min.js","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/"}

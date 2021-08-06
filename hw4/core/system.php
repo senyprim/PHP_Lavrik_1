@@ -30,13 +30,15 @@ function parseUrl(string $url, array $routs): array
 {
     $result = [
         'controller' => 'errors/404',
-        'params' => []
+        'params' => [],
     ];
 
     foreach ($routs as $route) {
         $matches = [];
         if (preg_match($route['route'], $url, $matches)) {
             $result['controller'] = $route['controller'];
+            $result['roles'] = $route['roles'];
+            
             if (isset($route['params'])) {
                 foreach ($route['params'] as $key => $value) {
                     $result['params'][$key] = $matches[$value];

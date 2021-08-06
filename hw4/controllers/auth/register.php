@@ -13,6 +13,9 @@ if ('POST'===$_SERVER["REQUEST_METHOD"]) {
     if (empty($errors)) {
 		//$fields = encodeFields($fields);//Кодировка нужна для вывода данных (при сохранении в базу она не нужна)
 		$result = addUser($fields['login'],$fields['password'],$fields['id_role'],$fields['id_status']);
+        if (isset($_SESSION['forbiddenUrl'])){
+            
+        }
 		if ($result) {
 			header('Location: ' . BASE_URL . '/user/' . getLastId());
 			exit();

@@ -1,0 +1,3 @@
+{"time":"13:35:27","ip":"127.0.0.1","uri":"\/hw4\/","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/logs\/2021-08-04"}
+{"time":"14:33:41","ip":"127.0.0.1","uri":"\/hw4\/","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/logs\/2021-08-04"}
+{"time":"16:33:16","ip":"127.0.0.1","uri":"\/hw4\/","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/logs\/2021-08-04"}

@@ -7,7 +7,7 @@ $fields = extractFields([], $fieldNames);
 //Запрашиваем все категории чтобы показать список
 //(так как при ошибочных post запросах мы должны показывать все категории опять)
 $categories = getAllCategory();
-if ('POST' == $_SERVER["REQUEST_METHOD"]) {
+if ('POST' == $_SERVER["REQUEST_METHOD"] && isset($_POST['article-form'])) {
 	$fields = extractFields($_POST, $fieldNames);
 	//Валидация
 	$errors = validateArticle($fields);

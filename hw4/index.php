@@ -29,6 +29,9 @@ function getAuthorizedUser(): ?array
 	//Проверяем попытки залогинится 
 	elseif ('POST' === $_SERVER['REQUEST_METHOD'] && isset($_POST['loginFrm'])) {
 		$user = login();
+		if (empty($user)){
+			$_SESSION['loginError']='Неверные имя пользователя или пароль';
+		}
 	}
 	//Проверяем что пользователь уже авторизован(есть токен)
 	else {
@@ -36,6 +39,12 @@ function getAuthorizedUser(): ?array
 	}
 	return $user;
 }
+//Возвращает true если у пользователя  роль из массива ролей
+function isAccesAllow(?array $user,$roles):bool{
+	if (empty($roles)) return true;
+	$role=$user['role']??'guest';
+	return in_array($role,$roles,true);
+};
 //Глобальные переменные:
 $controller = null; //Контролер для роутинга
 $user = null; //Залогиненный пользователь
@@ -55,22 +64,30 @@ $routerRes = parseUrl(
 //Регистрируем параметры запроса
 $controller = $routerRes['controller'];
 define('URL_PARAMS', $routerRes['params']);
-//Ищем такой контроллер и если его нет то  переводим на контролер 404
+define('ACCESS_ALLOWED',$routerRes['roles']);
+//Проверяем что страница доступна для авторизированного пользователя
+if (!isAccesAllow($user,ACCESS_ALLOWED)){
+	$controller='errors/403';
+	// $_SESSION['forbiddenUrl']=$url;
+}
 $pathController = DIRECTORY_CONTROLLER . '/' . $controller . '.php';
+//Ищем такой контроллер и если его нет то  переводим на контролер 404
 if (!file_exists($pathController)) {
 	$controller = 'errors/404';
 	$pathController = DIRECTORY_CONTROLLER . '/' . $controller . '.php';
 }
-//Если userLogin null - значит авторизация не пройденна и должны показать форму логин
+//Если user null - значит авторизация не пройденна и должны показать форму логин
 //иначе должны показать форму logOut
+
 $loginBlock =
 	$header = renderTwig(
 		'header',
 		[
 			'loginBlock' => $user === null
 				? renderTwig('auth/login', [
-					'loginFrm' => $loginFrm ?? null,
-					'action' => $url
+					'loginFrm' => $_POST['loginFrm'] ?? null,
+					'action' => $url,
+					'message'=>$_SESSION['loginError']
 				])
 				: renderTwig('auth/logout', [
 					'userLogin' => $user['login'] ?? '',
@@ -89,4 +106,5 @@ $page = renderTwig('layout', [
 	'content' => $content,
 	'footer' => $footer,
 ]);
+unset($_SESSION['loginError']);
 echo $page;

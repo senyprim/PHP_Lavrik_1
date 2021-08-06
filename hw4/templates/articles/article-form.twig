@@ -1,8 +1,15 @@
+{# 
+action
+title
+fields[]
+errors[]
+ #}
 <form action="{{constant('BASE_URL')}}/article/{{action}}" method="post"
  class="needs-validation" novalidate>
     <h2 class="col text-center alert alert-primary">
         {{title}}
     </h2>
+    <input type="hidden" name="article-form"/>
     <input type="hidden" name="id" value="{{fields.id??null}}">
     <div class="row mb-3">
         <div class="col">

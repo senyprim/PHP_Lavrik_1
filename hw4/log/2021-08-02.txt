@@ -1,0 +1,4 @@
+{"time":"10:20:13","ip":"127.0.0.1","uri":"\/hw4\/","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/"}
+{"time":"10:20:14","ip":"127.0.0.1","uri":"\/hw4\/assets\/vendor\/bootstrap\/js\/bootstrap.bundle.min.js","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/"}
+{"time":"10:20:17","ip":"127.0.0.1","uri":"\/hw4\/login","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/"}
+{"time":"10:20:17","ip":"127.0.0.1","uri":"\/hw4\/assets\/vendor\/bootstrap\/js\/bootstrap.bundle.min.js","method":"GET","referer":"http:\/\/lavrik.local\/hw4\/login"}
